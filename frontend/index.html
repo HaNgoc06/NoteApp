@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quick Notes</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+
+<header>
+  <h1>Quick Notes</h1>
+  <div class="header-actions">
+    <button class="add-note-btn" onclick="openNoteDialog()">+ Add Note</button>
+    
+    <div id="authSection">
+      <button class="add-note-btn" onclick="document.getElementById('loginDialog').showModal()">Login</button>
+      <button class="add-note-btn" onclick="document.getElementById('signupDialog').showModal()">Sign Up</button>
+    </div>
+
+    <button id="themeToggleBtn" class="theme-toggle-btn">🌙</button>
+  </div>
+</header>
+
+  <main id="notesContainer" class="notes-grid">
+  </main>
+
+  <dialog id="noteDialog">
+    <div class="dialog-content">
+      <div class="dialog-header">
+        <h2 class="dialog-title" id="dialogTitle">Add New Note</h2>
+        <button class="close-btn" onclick="closeNoteDialog()">x</button>
+      </div>
+
+      <form id="noteForm">
+        <div class="form-group">
+          <label for="noteTitle" class="form-label">Title</label>
+          <input type="text" id="noteTitle" class="form-input" placeholder="Enter note title..." required>
+        </div>
+        
+        <div class="form-group">
+          <label for="noteContent" class="form-label">Content</label>
+          <textarea id="noteContent" class="form-textarea" placeholder="Write your note here..." required></textarea>
+        </div>
+
+        <div class="dialog-actions">
+          <button type="button" class="cancel-btn" onclick="closeNoteDialog()">Cancel</button>
+          <button type="submit" class="save-btn">Save Note</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+ <dialog id="loginDialog">
+  <div class="dialog-content">
+    <div class="dialog-header">
+      <h2 class="dialog-title">Login</h2>
+      <button class="close-btn" onclick="document.getElementById('loginDialog').close()">x</button>
+    </div>
+    <div class="wrapper" style="width: 100%; height: auto; background: none; padding: 0;">
+      <p class="error-msg" style="color: #f06272; margin-bottom: 10px;"></p> <form id="loginForm">
+        <div class="form-group">
+          <input type="email" id="login-email" class="form-input" placeholder="Email" required>
+        </div>
+        <div class="form-group">
+          <input type="password" id="login-password" class="form-input" placeholder="Password" required>
+        </div>
+        <button type="submit" class="save-btn" style="width: 100%;">Login</button>
+      </form>
+      <div class="divider">OR</div>
+
+      <button class="google-btn" onclick="handleGoogleLogin()">
+        <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" alt="Google logo">
+        Continue with Google
+      </button>
+      <p style="margin-top: 1rem;">New here? <a href="#" onclick="openSignupFromLogin()">Create an Account</a></p>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="signupDialog">
+  <div class="dialog-content">
+    <div class="dialog-header">
+      <h2 class="dialog-title">Create Account</h2>
+      <button class="close-btn" onclick="document.getElementById('signupDialog').close()">x</button>
+    </div>
+    <div class="wrapper" style="width: 100%; height: auto; background: none; padding: 0;">
+      <p class="error-msg" style="color: #f06272; margin-bottom: 10px;"></p> <form id="signupForm">
+        <div class="form-group">
+          <input type="text" id="signup-firstname" class="form-input" placeholder="Full Name" required>
+        </div>
+        <div class="form-group">
+          <input type="email" id="signup-email" class="form-input" placeholder="Email" required>
+        </div>
+        <div class="form-group">
+          <input type="password" id="signup-password" class="form-input" placeholder="Password" required>
+        </div>
+        <button type="submit" class="save-btn" style="width: 100%;">Sign Up</button>
+      </form>
+      <div class="divider">OR</div>
+
+      <button class="google-btn" onclick="handleGoogleLogin()">
+        <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/24px.svg" alt="Google logo">
+        Continue with Google
+      </button>
+
+      <p style="margin-top: 1rem;">Already have an account? <a href="#" onclick="openLoginFromSignup()">Login</a></p>
+    </div>
+  </div>
+</dialog>
+</body>
+</html>
